@@ -1,5 +1,6 @@
 'use strict';
 
+const BufferS = require('buffer-shims');
 const MailParser = require('..').MailParser;
 const iconv = require('iconv-lite');
 const fs = require('fs');
@@ -10,7 +11,7 @@ exports['General tests'] = {
             '\r\n' +
             'ÕÄ\r\n' +
             'ÖÜ', // \r\nÕÄÖÜ
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -23,7 +24,7 @@ exports['General tests'] = {
         });
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
 
         mailparser.end();
@@ -69,7 +70,7 @@ exports['General tests'] = {
     'Headers only': test => {
         let encodedText = 'Content-type: text/plain; charset=utf-8\r\n' +
             'Subject: ÕÄÖÜ',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -84,7 +85,7 @@ exports['General tests'] = {
     'Body only': test => {
         let encodedText = '\r\n' +
             '===',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -104,7 +105,7 @@ exports['General tests'] = {
             'ÕÄÖÜ\r\n' +
             'ÜÖÄÕ\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(2);
         let mailparser = new MailParser();
@@ -129,7 +130,7 @@ exports['General tests'] = {
             '\r\n' +
             'AAECAwQFBg==\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(3);
         let mailparser = new MailParser();
@@ -158,7 +159,7 @@ exports['General tests'] = {
             'Subject: ÕÄÖÜ\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -176,7 +177,7 @@ exports['General tests'] = {
             'X-Priority: 1 (Highest)\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -193,7 +194,7 @@ exports['General tests'] = {
             'References: <mail1>\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -211,7 +212,7 @@ exports['General tests'] = {
             '    <mail2> <mail3>\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -229,7 +230,7 @@ exports['General tests'] = {
             'References: <mail3>\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -246,7 +247,7 @@ exports['General tests'] = {
             'in-reply-to: <mail1>\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -264,7 +265,7 @@ exports['General tests'] = {
             '    <mail2> <mail3>\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -282,7 +283,7 @@ exports['General tests'] = {
             'in-reply-to: <mail3>\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -299,7 +300,7 @@ exports['General tests'] = {
             'Subject: ÕÄÖÜ\n' +
             '\r\n' +
             '1234',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -320,7 +321,7 @@ exports['Text encodings'] = {
 
     'Plaintext encoding: Default': test => {
         let encodedText = [13, 10, 213, 196, 214, 220], // \r\nÕÄÖÜ
-            mail = Buffer.from(encodedText);
+            mail = BufferS.from(encodedText);
 
         test.expect(1);
 
@@ -337,7 +338,7 @@ exports['Text encodings'] = {
         let encodedText = 'Content-Type: TEXT/PLAIN; CHARSET=UTF-8\r\n' +
             '\r\n' +
             'ÕÄÖÜ',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -353,7 +354,7 @@ exports['Text encodings'] = {
         let encodedText = 'Content-Type: text/html; charset=iso-UTF-8\r\n' +
             '\r\n' +
             'ÕÄÖÜ',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         test.expect(1);
         let mailparser = new MailParser();
@@ -370,7 +371,7 @@ exports['Text encodings'] = {
             'From: =?utf-8?q?_?= <sender@email.com>\r\n' +
             'To: =?ISO-8859-1?Q?Keld_J=F8rn_Simonsen?= <to@email.com>\r\n' +
             'Subject: =?iso-8859-1?Q?Avaldu?= =?iso-8859-1?Q?s_lepingu_?=\r\n =?iso-8859-1?Q?l=F5petamise?= =?iso-8859-1?Q?ks?=\r\n',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -390,7 +391,7 @@ exports['Binary attachment encodings'] = {
             'Content-Transfer-Encoding: QUOTED-PRINTABLE\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -416,7 +417,7 @@ exports['Binary attachment encodings'] = {
             'Content-Transfer-Encoding: base64\r\n' +
             '\r\n' +
             'AAECA/3+/w==',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -441,7 +442,7 @@ exports['Binary attachment encodings'] = {
         let encodedText = 'Content-Type: application/octet-stream\r\n' +
             '\r\n' +
             'ÕÄÖÜ',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -471,7 +472,7 @@ exports['Attachment Content-Id'] = {
             'Content-Disposition: attachment; filename="=?UTF-8?Q?=C3=95=C3=84=C3=96=C3=9C?="\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -500,7 +501,7 @@ exports['Attachment Content-Id'] = {
             'Content-Id: <test@localhost>\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -531,7 +532,7 @@ exports['Attachment filename'] = {
             'Content-Disposition: attachment; filename="=?UTF-8?Q?=C3=95=C3=84=C3=96=C3=9C?="\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -558,7 +559,7 @@ exports['Attachment filename'] = {
             'Content-Disposition: attachment; filename*="UTF-8\'\'%C3%95%C3%84%C3%96%C3%9C"\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -588,7 +589,7 @@ exports['Attachment filename'] = {
             '    filename*2=.txt\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -617,7 +618,7 @@ exports['Attachment filename'] = {
             '    filename*1*=%C3%96%C3%9C\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -647,7 +648,7 @@ exports['Attachment filename'] = {
             '    filename*2=.txt\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -674,7 +675,7 @@ exports['Attachment filename'] = {
             'Content-Transfer-Encoding: QUOTED-PRINTABLE\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -700,7 +701,7 @@ exports['Attachment filename'] = {
             'Content-Transfer-Encoding: QUOTED-PRINTABLE\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -727,7 +728,7 @@ exports['Attachment filename'] = {
             'Content-Transfer-Encoding: QUOTED-PRINTABLE\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -755,7 +756,7 @@ exports['Attachment filename'] = {
             'Content-Transfer-Encoding: QUOTED-PRINTABLE\r\n' +
             '\r\n' +
             '=00=01=02=03=FD=FE=FF',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -788,7 +789,7 @@ exports['Attachment filename'] = {
             '\r\n' +
             '=00=01=02=03=FD=FE=FF\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -822,7 +823,7 @@ exports['Attachment filename'] = {
             '\r\n' +
             '=00=01=02=03=FD=FE=FF\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -852,7 +853,7 @@ exports['Attachment filename'] = {
             '\r\n' +
             '=00=01=02=03=FD=FE=FF\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -878,7 +879,7 @@ exports['Attachment filename'] = {
 exports['Plaintext format'] = {
     Default: test => {
         let encodedText = 'Content-Type: text/plain;\r\n\r\nFirst line \r\ncontinued',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -890,7 +891,7 @@ exports['Plaintext format'] = {
     },
     Flowed: test => {
         let encodedText = 'Content-Type: text/plain; format=flowed\r\n\r\nFirst line \r\ncontinued \r\nand so on',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -904,7 +905,7 @@ exports['Plaintext format'] = {
         let encodedText = 'Content-Type: text/plain; format=flowed\r\n\r\nHow are you today?\r\n\r\n' +
             '-- \r\n' +
             'Signature\r\n',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -916,7 +917,7 @@ exports['Plaintext format'] = {
     },
     Fixed: test => {
         let encodedText = 'Content-Type: text/plain; format=fixed\r\n\r\nFirst line \r\ncontinued \r\nand so on',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -928,7 +929,7 @@ exports['Plaintext format'] = {
     },
     DelSp: test => {
         let encodedText = 'Content-Type: text/plain; format=flowed; delsp=yes\r\n\r\nFirst line \r\ncontinued \r\nand so on',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -943,7 +944,7 @@ exports['Plaintext format'] = {
 exports['Transfer encoding'] = {
     'Quoted-Printable Default charset': test => {
         let encodedText = 'Content-type: text/plain\r\nContent-Transfer-Encoding: quoted-printable\r\n\r\n=D5=C4=D6=DC',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -955,7 +956,7 @@ exports['Transfer encoding'] = {
     },
     'Quoted-Printable UTF-8': test => {
         let encodedText = 'Content-type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: QUOTED-PRINTABLE\r\n\r\n=C3=95=C3=84=C3=96=C3=9C',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -967,7 +968,7 @@ exports['Transfer encoding'] = {
     },
     'Base64 Default charset': test => {
         let encodedText = 'Content-type: text/plain\r\nContent-Transfer-Encoding: bAse64\r\n\r\n1cTW3A==',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -979,7 +980,7 @@ exports['Transfer encoding'] = {
     },
     'Base64 UTF-8': test => {
         let encodedText = 'Content-type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: bAse64\r\n\r\nw5XDhMOWw5w=',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -991,7 +992,7 @@ exports['Transfer encoding'] = {
     },
     'Mime Words': test => {
         let encodedText = 'Content-type: text/plain; charset=utf-8\r\nSubject: =?iso-8859-1?Q?Avaldu?= =?iso-8859-1?Q?s_lepingu_?=\r\n =?iso-8859-1?Q?l=F5petamise?= =?iso-8859-1?Q?ks?=\r\n',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1004,7 +1005,7 @@ exports['Transfer encoding'] = {
     '8bit Default charset': test => {
         let encodedText = 'Content-type: text/plain\r\nContent-Transfer-Encoding: 8bit\r\n\r\nÕÄÖÜ',
             textmap = encodedText.split('').map(chr => chr.charCodeAt(0)),
-            mail = Buffer.from(textmap);
+            mail = BufferS.from(textmap);
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1016,7 +1017,7 @@ exports['Transfer encoding'] = {
     },
     '8bit UTF-8': test => {
         let encodedText = 'Content-type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: 8bit\r\n\r\nÕÄÖÜ',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1028,7 +1029,7 @@ exports['Transfer encoding'] = {
     },
     'Invalid Quoted-Printable': test => {
         let encodedText = 'Content-type: text/plain; charset=utf-8\r\nContent-Transfer-Encoding: QUOTED-PRINTABLE\r\n\r\n==C3==95=C3=84=C3=96=C3=9C=',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1040,7 +1041,7 @@ exports['Transfer encoding'] = {
     },
     'gb2312 mime words': test => {
         let encodedText = 'From: =?gb2312?B?086yyZjl?= user@ldkf.com.tw\r\n\r\nBody',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1055,7 +1056,7 @@ exports['Transfer encoding'] = {
     },
     'Valid Date header': test => {
         let encodedText = 'Date: Wed, 08 Jan 2014 09:52:26 -0800\r\n\r\n1cTW3A==',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1067,7 +1068,7 @@ exports['Transfer encoding'] = {
     },
     'Invalid Date header': test => {
         let encodedText = 'Date: zzzzz\r\n\r\n1cTW3A==',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1079,7 +1080,7 @@ exports['Transfer encoding'] = {
     },
     'Missing Date header': test => {
         let encodedText = 'Subject: test\r\n\r\n1cTW3A==',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1094,7 +1095,7 @@ exports['Transfer encoding'] = {
 exports['Multipart content'] = {
     Simple: test => {
         let encodedText = 'Content-type: multipart/mixed; boundary=ABC\r\n\r\n--ABC\r\nContent-type: text/plain; charset=utf-8\r\n\r\nÕÄÖÜ\r\n--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1116,7 +1117,7 @@ exports['Multipart content'] = {
             'ÕÄÖÜ\r\n' +
             '--DEF--\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1136,7 +1137,7 @@ exports['Multipart content'] = {
             '\r\n' +
             'ÕÄÖÜ\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1162,7 +1163,7 @@ exports['Multipart content'] = {
             'ÕÄÖÜ1\r\n' +
             '--DEF--\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let mailparser = new MailParser();
         mailparser.end(mail);
@@ -1187,7 +1188,7 @@ exports['Attachment info'] = {
             '=00=01=02=03=04=05=06\r\n' +
             '--ABC--',
             expectedHash = '9aa461e1eca4086f9230aa49c90b0c61',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -1204,7 +1205,7 @@ exports['Attachment info'] = {
         });
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
         mailparser.end();
 
@@ -1225,13 +1226,13 @@ exports['Attachment info'] = {
             'AAECAwQFBg==\r\n' +
             '--ABC--',
             expectedHash = '9aa461e1eca4086f9230aa49c90b0c61',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
 
         test.expect(2);
@@ -1267,7 +1268,7 @@ exports['Attachment info'] = {
             'ÖÜ\r\n' +
             '--ABC--',
             expectedHash = 'cad0f72629a7245dd3d2cbf41473e3ca',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -1285,7 +1286,7 @@ exports['Attachment info'] = {
         });
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
 
         test.expect(2);
@@ -1328,7 +1329,7 @@ exports['Attachment info'] = {
         });
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
 
         test.expect(2);
@@ -1353,7 +1354,7 @@ exports['Attachment info'] = {
             '=de=d0\r\n' +
             '--ABC--',
             expectedHash = '34bca86f8cc340bbd11446ee16ee3cae',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -1371,7 +1372,7 @@ exports['Attachment info'] = {
         });
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
 
         test.expect(2);
@@ -1391,7 +1392,7 @@ exports['Attachment info'] = {
             'ÕÄ\r\n' +
             'ÖÜ',
             expectedHash = 'cad0f72629a7245dd3d2cbf41473e3ca',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser({
@@ -1411,7 +1412,7 @@ exports['Attachment info'] = {
         });
 
         for (let i = 0, len = mail.length; i < len; i++) {
-            mailparser.write(Buffer.from([mail[i]]));
+            mailparser.write(BufferS.from([mail[i]]));
         }
 
         test.expect(2);
@@ -1445,7 +1446,7 @@ exports['Attachment info'] = {
             '\r\n' +
             'AAECAwQFBg==\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser({
@@ -1482,7 +1483,7 @@ exports['Attachment info'] = {
             '\r\n' +
             'AAECAwQFBg==\r\n' +
             '--ABC--',
-            mail = Buffer.from(encodedText, 'utf-8');
+            mail = BufferS.from(encodedText, 'utf-8');
 
         let attachments = [];
         let mailparser = new MailParser();
@@ -1516,7 +1517,7 @@ exports['Advanced nested HTML'] = test => {
     let mailparser = new MailParser();
 
     for (let i = 0, len = mail.length; i < len; i++) {
-        mailparser.write(Buffer.from([mail[i]]));
+        mailparser.write(BufferS.from([mail[i]]));
     }
 
     mailparser.end();
@@ -1535,7 +1536,7 @@ exports['Additional text'] = test => {
     let mailparser = new MailParser();
 
     for (let i = 0, len = mail.length; i < len; i++) {
-        mailparser.write(Buffer.from([mail[i]]));
+        mailparser.write(BufferS.from([mail[i]]));
     }
 
     mailparser.end();
