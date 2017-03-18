@@ -1,7 +1,7 @@
 {
-  "name": "mailparser",
+  "name": "mailparser-node4",
   "version": "2.0.2",
-  "description": "Parse e-mails",
+  "description": "tweaking `mailparser` to work on node 4.3 so it works on AWS lambda",
   "main": "index.js",
   "scripts": {
     "test": "grunt"
@@ -14,7 +14,7 @@
     "html-to-text": "3.1.0",
     "iconv-lite": "0.4.15",
     "libmime": "3.1.0",
-    "mailsplit": "4.0.0",
+    "mailsplit-node4": "^4.0.1",
     "marked": "0.3.6"
   },
   "devDependencies": {
@@ -32,9 +32,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andris9/mailparser.git"
+    "url": "https://github.com/farskipper/mailparser.git"
   },
   "bugs": {
-    "url": "https://github.com/andris9/mailparser/issues"
+    "url": "https://github.com/farskipper/mailparser/issues"
   }
 }
