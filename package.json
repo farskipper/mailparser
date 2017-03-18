@@ -30,7 +30,7 @@
     "random-message": "^1.1.0"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=4.3.0"
   },
   "repository": {
     "type": "git",
