@@ -1,5 +1,5 @@
 # Fork of MailParser
-tweaking [mailparser](https://github.com/nodemailer/mailparser) to work on node 4.3 so it works on AWS lambda
+tweaking [mailparser](https://github.com/nodemailer/mailparser) to work on node 4
 
 [![Build Status](https://api.travis-ci.org/farskipper/mailparser.svg)](http://travis-ci.org/farskipper/mailparser)
 
